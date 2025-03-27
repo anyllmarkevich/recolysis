@@ -7,6 +7,9 @@ use extendr_api::prelude::*;
 fn hello_world() -> &'static str {
     "Hello world!"
 }
+
+/// IDK what this does
+/// @export
 #[extendr]
 fn determ_pva(
     survival_matrix: RMatrix<f64>,
@@ -37,6 +40,10 @@ fn determ_pva(
             transposed_data.push(value);
         }
     }
+    println!("{:?}", transposed_data);
+    println!("\n");
+    println!("{:?}", survival_matrix.data());
+    println!("\n");
     "hello world"
 }
 

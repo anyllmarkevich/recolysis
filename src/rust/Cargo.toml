@@ -10,3 +10,4 @@ name = 'recolysis'
 [dependencies]
 ecolysis_core = "0.0.1"
 extendr-api = '*'
+transpose = "0.2.3"

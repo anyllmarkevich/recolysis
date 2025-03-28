@@ -14,7 +14,13 @@ NULL
 #' reproduction rates for each age class and a vector counting the starting number of
 #' individuals in each age class. The number of generations to calculate must also be included.
 #' @export
-determ_pva <- function(survival_matrix, population_matrix, generations) .Call(wrap__determ_pva, survival_matrix, population_matrix, generations)
+determ_pva <- function(survival_matrix, population_vector, generations) .Call(wrap__determ_pva, survival_matrix, population_vector, generations)
+
+#' Deterministic population viability analysis based on a matrix containing survival and
+#' reproduction rates for each age class and a vector counting the starting number of
+#' individuals in each age class. The number of generations to calculate must also be included.
+#' @export
+stoch_pva <- function(survival_matrix, population_vector, generations, iterations) invisible(.Call(wrap__stoch_pva, survival_matrix, population_vector, generations, iterations))
 
 
 # nolint end

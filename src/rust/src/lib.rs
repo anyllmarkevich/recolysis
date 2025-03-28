@@ -1,13 +1,6 @@
 use ecolysis_core::*;
 use extendr_api::prelude::*;
 
-/// Return string `"Hello world!"` to R.
-/// @export
-#[extendr]
-fn hello_world() -> &'static str {
-    "Hello world!"
-}
-
 /// IDK what this does
 /// @export
 #[extendr]

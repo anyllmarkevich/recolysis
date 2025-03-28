@@ -7,7 +7,7 @@ library(recolysis)
 ### DETERMINISTIC SIMULATION###
 
 # Prepare data
-survival_matrix <- matrix(c(0, 0, 0.1, 0.1, 0.8, 0, 0, 0.8, 0.99), ncol = 3, nrow=3, byrow = TRUE)
+survival_matrix <- matrix(c(0, 0.1, 0.0, 0.0, 0.4, 0.5, 1.5, 0.0, 0.9), ncol = 3, nrow=3, byrow = FALSE)
 population_vector <- c(50, 100, 100)
 generations <- 50
 

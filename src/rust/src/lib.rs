@@ -12,14 +12,13 @@ fn determ_pva(
     population_vector: &[f64],
     generations: u32,
 ) -> RMatrix<f64> {
-    let ncol = survival_matrix.nrows();
+    let ncol = survival_matrix.ncols();
+    let nrow = survival_matrix.nrows();
     let p_vec = population_vector.to_vec();
-    let s_mat: Vec<_> = survival_matrix
-        .data()
-        .to_vec()
-        .chunks_exact(ncol)
-        .map(|col| col.to_vec())
-        .collect();
+    let mut smat = survival_matrix.data().to_vec();
+    let smat0 = survival_matrix.data().to_vec();
+    transpose(&smat0, &mut smat, nrow, ncol);
+    let s_mat: Vec<_> = smat.chunks_exact(nrow).map(|col| col.to_vec()).collect();
     let output = PvaDeterministicPopulation::build_from_vectors(p_vec, s_mat)
         .expect("Inputs are not formatted correctly")
         .deterministic_projection(generations)
@@ -27,9 +26,10 @@ fn determ_pva(
     RMatrix::new_matrix(Vec::len(&output), Vec::len(&output[0]), |r, c| output[r][c])
 }
 
-/// Deterministic population viability analysis based on a matrix containing survival and
+/// Stochastic population viability analysis based on multiple 2D matrices containing survival and
 /// reproduction rates for each age class and a vector counting the starting number of
-/// individuals in each age class. The number of generations to calculate must also be included.
+/// individuals in each age class. The number of generations to calculate and the number of times
+/// to repeat the simulation must also be included.
 /// @export
 #[extendr]
 fn stoch_pva(

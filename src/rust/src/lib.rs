@@ -42,6 +42,5 @@ fn determ_pva(
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod recolysis;
-    fn hello_world;
     fn determ_pva;
 }

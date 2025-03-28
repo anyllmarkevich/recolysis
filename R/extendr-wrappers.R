@@ -20,7 +20,7 @@ determ_pva <- function(survival_matrix, population_vector, generations) .Call(wr
 #' reproduction rates for each age class and a vector counting the starting number of
 #' individuals in each age class. The number of generations to calculate must also be included.
 #' @export
-stoch_pva <- function(survival_matrix, population_vector, generations, iterations) invisible(.Call(wrap__stoch_pva, survival_matrix, population_vector, generations, iterations))
+stoch_pva <- function(survival_matrix, population_vector, generations, iterations) .Call(wrap__stoch_pva, survival_matrix, population_vector, generations, iterations)
 
 
 # nolint end

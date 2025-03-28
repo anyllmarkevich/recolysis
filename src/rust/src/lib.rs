@@ -1,7 +1,9 @@
 use ecolysis_core::*;
 use extendr_api::prelude::*;
 
-/// IDK what this does
+/// Deterministic population viability analysis based on a matrix containing survival and
+/// reproduction rates for each age class and a vector counting the starting number of
+/// individuals in each age class. The number of generations to calculate must also be included.
 /// @export
 #[extendr]
 fn determ_pva(
@@ -10,31 +12,18 @@ fn determ_pva(
     generations: u32,
 ) -> RMatrix<f64> {
     let ncol = survival_matrix.nrows();
-    let s_vec = survival_matrix.data();
     let p_vec = population_matrix.to_vec();
-    let s_mat: Vec<_> = s_vec
+    let s_mat: Vec<_> = survival_matrix
+        .data()
         .to_vec()
         .chunks_exact(ncol)
         .map(|col| col.to_vec())
         .collect();
-    let pop = PvaDeterministicPopulation::build_from_vectors(p_vec, s_mat)
-        .expect("Inputs are not formatted correctly.");
-    let output = pop.deterministic_projection(generations);
-    output.print_output();
-    let num_out = output.return_numerical_output();
-    let flattened = num_out
-        .iter()
-        .flat_map(|array| array.iter().cloned())
-        .collect();
-    RMatrix::new_matrix(
-        Vec::len(&flattened) / Vec::len(&num_out[0]),
-        Vec::len(&num_out[0]),
-        |r, c| num_out[r][c],
-    )
-    //println!("{:?}", s_mat);
-    //println!("\n");
-    //println!("{:?}", p_vec);
-    //println!("\n");
+    let output = PvaDeterministicPopulation::build_from_vectors(p_vec, s_mat)
+        .expect("Inputs are not formatted correctly.")
+        .deterministic_projection(generations)
+        .return_numerical_output();
+    RMatrix::new_matrix(Vec::len(&output), Vec::len(&output[0]), |r, c| output[r][c])
 }
 
 // Macro to generate exports.

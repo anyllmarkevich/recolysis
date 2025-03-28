@@ -10,11 +10,9 @@
 #' @useDynLib recolysis, .registration = TRUE
 NULL
 
-#' Return string `"Hello world!"` to R.
-#' @export
-hello_world <- function() .Call(wrap__hello_world)
-
-#' IDK what this does
+#' Deterministic population viability analysis based on a matrix containing survival and
+#' reproduction rates for each age class and a vector counting the starting number of
+#' individuals in each age class. The number of generations to calculate must also be included.
 #' @export
 determ_pva <- function(survival_matrix, population_matrix, generations) .Call(wrap__determ_pva, survival_matrix, population_matrix, generations)
 

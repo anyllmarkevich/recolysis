@@ -20,7 +20,7 @@ fn determ_pva(
         .map(|col| col.to_vec())
         .collect();
     let output = PvaDeterministicPopulation::build_from_vectors(p_vec, s_mat)
-        .expect("Inputs are not formatted correctly.")
+        .expect("Inputs are not formatted correctly")
         .deterministic_projection(generations)
         .return_numerical_output();
     RMatrix::new_matrix(Vec::len(&output), Vec::len(&output[0]), |r, c| output[r][c])

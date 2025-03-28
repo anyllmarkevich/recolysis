@@ -16,7 +16,7 @@ hello_world <- function() .Call(wrap__hello_world)
 
 #' IDK what this does
 #' @export
-determ_pva <- function(survival_matrix, population_matrix, generations) .Call(wrap__determ_pva, survival_matrix, population_matrix, generations)
+determ_pva <- function(survival_matrix, population_matrix, generations) invisible(.Call(wrap__determ_pva, survival_matrix, population_matrix, generations))
 
 
 # nolint end

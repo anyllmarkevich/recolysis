@@ -11,17 +11,20 @@ fn hello_world() -> &'static str {
 /// IDK what this does
 /// @export
 #[extendr]
-fn determ_pva(
-    survival_matrix: RMatrix<f64>,
-    population_matrix: RMatrix<f64>,
-    generations: i32,
-) -> &'static str {
-    let s_mat = survival_matrix.data();
-    let p_mat = population_matrix.data();
+fn determ_pva(survival_matrix: RMatrix<f64>, population_matrix: &[f64], generations: i32) {
+    let ncol = survival_matrix.nrows();
+    let s_vec = survival_matrix.data();
+    let p_vec = population_matrix;
+    let s_mat: Vec<_> = s_vec
+        .to_vec()
+        .chunks_exact(ncol)
+        .map(|col| col.to_vec())
+        .collect();
+
+    println!("{:?}", s_mat);
     println!("\n");
-    println!("{:?}", survival_matrix.data());
+    println!("{:?}", p_vec);
     println!("\n");
-    "hello world"
 }
 
 // Macro to generate exports.

@@ -36,7 +36,7 @@ simulation_iterations <- 10
 simulation_output <- stoch_pva(survival_matrices, population_vector, generations, simulation_iterations)
 
 # Define graph x and y axes
-y <- d[, 3, 2] # Select ONE of the simulation iterations, and ONE of the lifestages to graph. Data is currently formatted as [iteration, life stage, generation]
+y <- simulation_output[, 3, 2] # Select ONE of the simulation iterations, and ONE of the lifestages to graph. Data is currently formatted as [iteration, life stage, generation]
 x <- seq(0, length(y)-1, 1)
 
 # Graph simulation
